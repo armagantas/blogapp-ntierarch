@@ -4,6 +4,7 @@ using BlogApp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApp.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822102020_secondMigration")]
+    partial class secondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +65,8 @@ namespace BlogApp.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
@@ -74,32 +78,6 @@ namespace BlogApp.Data.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Articles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("18bc0835-9cc0-4b96-a425-85c020cc9599"),
-                            CategoryId = new Guid("fd2e4a58-7c07-4619-aa49-2573e7b1d441"),
-                            Content = "Clean Architecture style focus on a loosely coupled implementation of use cases. Use cases as central organizing structure, decoupled from frameworks and technology details.",
-                            CreatedBy = "Admin User",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1484),
-                            ImageId = new Guid("26d92493-2674-4424-ba1d-1159697d7c03"),
-                            IsDeleted = false,
-                            Title = ".Net Core Clean Architecture",
-                            ViewCount = 15
-                        },
-                        new
-                        {
-                            Id = new Guid("3433398a-1bd1-4e8a-9341-3de5bafedf7c"),
-                            CategoryId = new Guid("9b099245-e598-42e4-ad35-2673b4f4f090"),
-                            Content = "React is a popular front-end JavaScript library for creating interactive user interfaces. Node.js, on the other hand, is a server-side JavaScript environment that lets developers build scalable web applications with high performance and low latency.",
-                            CreatedBy = "Admin User",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1490),
-                            ImageId = new Guid("b74d71ef-e944-486a-ba69-5b33a6c12f5a"),
-                            IsDeleted = false,
-                            Title = "Node.js & React Full-Stack Web Application",
-                            ViewCount = 10
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Entity.Entities.Category", b =>
@@ -137,24 +115,6 @@ namespace BlogApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("fd2e4a58-7c07-4619-aa49-2573e7b1d441"),
-                            CreatedBy = "Admin User",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1761),
-                            IsDeleted = false,
-                            Name = ".NET Architecture"
-                        },
-                        new
-                        {
-                            Id = new Guid("9b099245-e598-42e4-ad35-2673b4f4f090"),
-                            CreatedBy = "Admin User",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1776),
-                            IsDeleted = false,
-                            Name = "MERN Stack Apps"
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Entity.Entities.Image", b =>
@@ -196,26 +156,6 @@ namespace BlogApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("26d92493-2674-4424-ba1d-1159697d7c03"),
-                            CreatedBy = "Admin Test",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1906),
-                            FileName = "images/testimage",
-                            FileType = "jpg",
-                            IsDeleted = false
-                        },
-                        new
-                        {
-                            Id = new Guid("b74d71ef-e944-486a-ba69-5b33a6c12f5a"),
-                            CreatedBy = "Admin Test",
-                            CreatedDate = new DateTime(2023, 8, 22, 13, 43, 52, 17, DateTimeKind.Local).AddTicks(1909),
-                            FileName = "images/nodeimage",
-                            FileType = "png",
-                            IsDeleted = false
-                        });
                 });
 
             modelBuilder.Entity("BlogApp.Entity.Entities.Article", b =>
