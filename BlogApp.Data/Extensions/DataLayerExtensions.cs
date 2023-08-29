@@ -1,6 +1,7 @@
 ﻿using BlogApp.Data.Context;
 using BlogApp.Data.Repositories.Abstractions;
 using BlogApp.Data.Repositories.Concretes;
+using BlogApp.Data.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,8 @@ namespace BlogApp.Data.Extensions
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
