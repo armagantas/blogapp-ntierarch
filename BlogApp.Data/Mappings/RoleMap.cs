@@ -37,6 +37,28 @@ namespace BlogApp.Data.Mappings
 
             // Each Role can have many associated RoleClaims
             builder.HasMany<AppRoleClaim>().WithOne().HasForeignKey(rc => rc.RoleId).IsRequired();
+
+            builder.HasData(new AppRole
+            {
+                Id = Guid.Parse("A1811FF0-8FC3-431E-9A74-456A40DB9F2B"),
+                Name = "Superadmin",
+                NormalizedName = "SUPERADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new AppRole
+            {
+                Id = Guid.Parse("23F307EB-F43D-4FF5-8560-A77B4ADFDA9D"),
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new AppRole
+            {
+                Id = Guid.Parse("2E842EC9-646D-458E-8701-388B1266D6F1"),
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            });
         }
     }
 }

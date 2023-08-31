@@ -1,4 +1,5 @@
 ﻿using BlogApp.Entity.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -46,6 +47,47 @@ namespace BlogApp.Data.Mappings
 
             // Each User can have many entries in the UserRole join table
             builder.HasMany<AppUserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+
+            var superadmin = new AppUser
+            {
+                Id = Guid.Parse("5BA1E7D3-2988-4FE9-A27A-711F5B0D6F55"),
+                UserName = "superadmin@gmail.com",
+                NormalizedUserName = "SUPERADMIN@GMAIL.COM",
+                Email = "superadmin@gmail.com",
+                NormalizedEmail = "SUPERADMIN@GMAIL.COM",
+                PhoneNumber = "+905439999999",
+                FirstName = "John",
+                LastName = "Doe",
+                PhoneNumberConfirmed = true,
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString(),
+            };
+            superadmin.PasswordHash = CreatePasswordHash(superadmin, "123456");
+
+            var admin = new AppUser
+            {
+                Id = Guid.Parse("44CFC968-3A34-4B83-8104-57723FC261D9"),
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                PhoneNumber = "+905439999998",
+                FirstName = "Maria",
+                LastName = "Castellanos",
+                PhoneNumberConfirmed = false,
+                EmailConfirmed = false,
+                SecurityStamp = Guid.NewGuid().ToString(),
+            };
+
+            admin.PasswordHash = CreatePasswordHash(admin, "123456");
+
+            builder.HasData(superadmin, admin);
+        }
+
+        private string CreatePasswordHash(AppUser user, string password)
+        {
+            var passwordHasher = new PasswordHasher<AppUser>();
+            return passwordHasher.HashPassword(user, password);
         }
     }
 }
