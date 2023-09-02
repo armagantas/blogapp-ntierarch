@@ -30,13 +30,13 @@ namespace BlogApp.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
-                if(user != null)
+                if (user != null)
                 {
                     var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password, userLoginDto.RememberMe, false);
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home", new {Area = "Admin"});
+                        return RedirectToAction("Index", "Home", new { Area = "Admin" });
                     }
                     else
                     {
