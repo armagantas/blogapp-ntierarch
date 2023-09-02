@@ -1,24 +1,8 @@
 ﻿@{
     Layout = null;
 }
-
-
+@model UserLoginDto
 <!DOCTYPE html>
-
-
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html lang="en" class="light-style  customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="~/sneat/assets/" data-template="vertical-menu-template-free">
 
 <head>
@@ -137,10 +121,12 @@
                         <h4 class="mb-2">Welcome to Sneat! 👋</h4>
                         <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-                        <form id="formAuthentication" class="mb-3"  method="POST">
+                        <form asp-controller="Auth" asp-action="Login" id="formAuthentication" class="mb-3"  method="POST">
+                            <div asp-validation-summary="All"></div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email or Username</label>
-                                <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus>
+                                <label asp-for="Email" for="email" class="form-label">Email</label>
+                                <input asp-for="Email" type="email" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
+                                <span asp-validation-for="Email"></span>
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -150,14 +136,15 @@
                                     </a>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                    <input asp-for="Password" type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    <span asp-validation-for="Password"></span>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me">
-                                    <label class="form-check-label" for="remember-me">
+                                    <input class="form-check-input" asp-for="RememberMe" type="checkbox" id="remember-me">
+                                    <label class="form-check-label" asp-for="RememberMe" for="remember-me">
                                         Remember Me
                                     </label>
                                 </div>
